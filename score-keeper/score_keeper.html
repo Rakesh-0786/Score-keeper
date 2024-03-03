@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score keeper</title>
+    <link rel="stylesheet" href="score_keeper.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half is-offset-one-quarter">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by1">
+                                <img src="./ping-pong  score keeper.jpeg" alt="">
+                            </figure>
+                        </div>
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Ping Pong Score Keeper
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <label for="player1Name" class="label is-large is-inline">Player One Name :</label>
+                                <input type="text" id="player1Name" class="input is-rounded"><br>
+
+                                <label for="player2Name" class="label is-large is-inline">Player Two Name :</label>
+                                <input type="text" id="player2Name" class="input is-rounded"><br>
+                                <!-- <h2>Player One Score: <span id="player1Score">0</span></h2> -->
+                                <!-- <h2>Player Two Score: <span id="player2Score">0</span></h2> -->
+                                
+                                <h1 class="title is-1">
+                                    <span id="player1NameDisplay">Player One </span>
+                                    <span id="p1Display" class="score">0</span> 
+                                    To
+                                    <span id="player2NameDisplay">Player Two</span>
+                                    <span id="p2Display" class="score">0</span>
+                                </h1>
+
+                                <p class="subtitle">Use the buttons below to keep Score</p>
+                                <label for="playto" class="label is-large is-inline">Playing To</label>
+                                <div class="select is-rounded">
+                                    <select name="" id="playto">
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <button id="p1Button" class="is-primary button card-footer-item is-large">+1 Player One</button>
+                            <button id="p2Button" class="is-info button card-footer-item is-large">+1 Player Two</button>
+                            <button id="reset" class="is-danger button card-footer-item is-large">Reset</button>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="score_keeper.js"></script>
+</body>
+</html>
+
+
+
+<!-- const p1Button = document.querySelector("#p1Button");
+const p2Button = document.querySelector("#p2Button");
+const resetButton = document.querySelector("#reset");
+const p1Display = document.querySelector("#p1Display");
+const p2Display = document.querySelector("#p2Display");
+const winningScoreSelect = document.querySelector("#playto");
+const player1NameDisplay = document.querySelector("#player1NameDisplay");
+const player2NameDisplay = document.querySelector("#player2NameDisplay");
+const player1ScoreDisplay = document.querySelector("#player1Score");
+const player2ScoreDisplay = document.querySelector("#player2Score");
+
+const player1NameInput = document.querySelector("#player1Name");
+const player2NameInput = document.querySelector("#player2Name");
+
+
+let p1Score = 0;
+let p2Score = 0;
+let winningScore = 5;
+let isGameOver = false;
+let player1Name = "";
+let player2Name = "";
+
+p1Button.addEventListener('click', function () {
+    if (!isGameOver) {
+        p1Score += 1;
+        if (p1Score === winningScore) {
+            isGameOver = true;
+            p1Display.classList.add("has-text-success", "winning-team");
+            p2Display.classList.add("has-text-danger", "losing-team");
+            p1Button.disabled = true;
+            p2Button.disabled = true;
+            alert(`${player1Name} wins!`);
+        }
+        p1Display.textContent = p1Score;
+    }
+})
+
+p2Button.addEventListener('click', function () {
+    if (!isGameOver) {
+        p2Score += 1;
+        if (p2Score === winningScore) {
+            isGameOver = true;
+            p2Display.classList.add("has-text-success", "winning-team");
+            p1Display.classList.add("has-text-danger", "losing-team");
+            p1Button.disabled = true;
+            p2Button.disabled = true;
+            alert(`${player2Name} wins!`);
+        }
+        p2Display.textContent = p2Score;
+    }
+})
+
+winningScoreSelect.addEventListener("change", function () {
+    winningScore = parseInt(this.value);
+    reset();
+})
+
+resetButton.addEventListener("click", reset);
+
+function reset() {
+    isGameOver = false;
+    p1Score = 0;
+    p2Score = 0;
+    p1Display.textContent = 0;
+    p2Display.textContent = 0;
+    p1Display.classList.remove("has-text-success", "winning-team");
+    p2Display.classList.remove("has-text-success", "winning-team");
+    p1Display.classList.remove("has-text-danger", "losing-team");
+    p2Display.classList.remove("has-text-danger", "losing-team");
+    p1Button.disabled = false;
+    p2Button.disabled = false;
+    player1Name = player1NameInput.value || "Player One ";
+    player2Name = player2NameInput.value || "Player Two ";
+    player1NameDisplay.textContent = player1Name;
+    player2NameDisplay.textContent = player2Name;
+    player1ScoreDisplay.textContent = "0";
+    player2ScoreDisplay.textContent = "0";
+
+    player1NameInput.value = ""; // Clear player 1 input
+    player2NameInput.value = ""; // Clear player 2 input
+
+    player1NameDisplay.textContent = "Player One "; // Reset player one display name
+    player2NameDisplay.textContent = "Player Two "; // Reset player two display name
+//     player1NameDisplay.textContent = "";
+// player2NameDisplay.textContent = "";
+}
+
+player1NameInput.addEventListener("input", function () {
+    player1Name = this.value;
+    player1NameDisplay.textContent = player1Name;
+});
+
+player2NameInput.addEventListener("input", function () {
+    player2Name = this.value;
+    player2NameDisplay.textContent = player2Name;
+});
+ -->
